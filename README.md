@@ -29,6 +29,23 @@ This project is a simple QR code generator written in C++ using the `libqrencode
      ```sh
      .\vcpkg integrate install
 
+### macOS
+
+1. **Install HomeBrew (if not already installed)**:
+   ```sh
+     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+2. **Install `libqrencode` using Homebrew**:
+   ```sh
+   brew install qrencode
+
+### Linux (Ubuntu)
+
+1. Install `libqrencode` using APT:
+   ```sh
+   sudo apt-get update
+   sudo apt-get install libqrencode-dev
+
+
 ## Setup in Visual Studio
 
 1. **Open your project in Visual Studio.**
