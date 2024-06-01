@@ -1,6 +1,7 @@
 #include <iostream>
 #include <qrencode.h>
 #include <fstream>
+#include <string>
 
 void saveToPBM(QRcode *qrcode, const std::string &filename) {
     std::ofstream file(filename, std::ios::binary);
@@ -25,18 +26,25 @@ void saveToPBM(QRcode *qrcode, const std::string &filename) {
     file.close();
 }
 
-int main() {
-    std::string text = "https://example.com";
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        std::cerr << "Usage: " << argv[0] << " <text_to_encode> [output_file]" << std::endl;
+        return 1;
+    }
+
+    std::string text = argv[1];
+    std::string outputFilename = (argc >= 3) ? argv[2] : "qrcode.pbm";
+
     QRcode *qrcode = QRcode_encodeString(text.c_str(), 0, QR_ECLEVEL_L, QR_MODE_8, 1);
     if (qrcode == nullptr) {
         std::cerr << "Failed to generate QR code" << std::endl;
         return 1;
     }
 
-    saveToPBM(qrcode, "qrcode.pbm");
+    saveToPBM(qrcode, outputFilename);
 
     QRcode_free(qrcode);
-    std::cout << "QR code generated and saved to qrcode.pbm" << std::endl;
+    std::cout << "QR code generated and saved to " << outputFilename << std::endl;
 
     return 0;
 }
